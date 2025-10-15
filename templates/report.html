@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}تقرير الحضور{% endblock %}
+{% block content %}
+<div class="card p-3 shadow">
+  <h4>📊 تقرير الحضور</h4>
+  <a class="btn btn-dark mb-3" href="{{ url_for('export') }}">📥 تنزيل Excel</a>
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead><tr><th>ID</th><th>الاسم</th><th>السكشن</th><th>الحضور</th><th>الغياب</th><th>النسبة %</th></tr></thead>
+      <tbody>
+        {% for r in stats %}
+        <tr><td>{{ r.ID }}</td><td>{{ r.Name }}</td><td>{{ r.Section }}</td><td>{{ r.Attended }}</td><td>{{ r.Absent }}</td><td>{{ r.Rate }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

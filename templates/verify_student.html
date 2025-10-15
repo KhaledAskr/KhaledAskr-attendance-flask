@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}فحص الطالب{% endblock %}
+{% block content %}
+
+<div class="card p-4 shadow">
+  <h4 class="mb-3">🔍 فحص بيانات الطالب</h4>
+  <form method="POST" class="row g-3">
+    <div class="col-md-6">
+      <input type="text" name="student_id" class="form-control" placeholder="أدخل رقم الجلوس" required>
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-info w-100">بحث</button>
+    </div>
+  </form>
+
+  {% if student %}
+  <hr>
+  <table class="table table-bordered mt-3 text-center">
+    <tr><th>ID</th><td>{{ student.ID }}</td></tr>
+    <tr><th>الاسم</th><td>{{ student.Name }}</td></tr>
+    <tr><th>السكشن</th><td>{{ student["رقم السكشن"] }}</td></tr>
+    <tr><th>الرقم الموحد</th><td>{{ student["الرقم الموحد"] }}</td></tr>
+    <tr><th>عدد أيام الحضور</th><td>{{ student["عدد ايام الحضور"] }}</td></tr>
+  </table>
+  {% endif %}
+</div>
+
+{% endblock %}

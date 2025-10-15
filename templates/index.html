@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}تسجيل الحضور{% endblock %}
+{% block content %}
+<div class="card shadow-lg p-4">
+  <div class="row align-items-center mb-4">
+    <div class="col-md-3 text-center">
+      <img src="{{ url_for('static', filename='images/faculty_logo.png') }}" alt="Faculty Logo" width="90">
+    </div>
+    <div class="col-md-6 text-center">
+      <h3 class="fw-bold">نظام تسجيل الحضور الذكي</h3>
+      <h6 class="text-muted">قسم علوم الأراضي - كلية الزراعة - جامعة بني سويف</h6>
+    </div>
+    <div class="col-md-3 text-center">
+      <img src="{{ url_for('static', filename='images/university_logo.png') }}" alt="University Logo" width="90">
+    </div>
+  </div>
+
+  <form method="POST" action="{{ url_for('mark_attendance') }}">
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label class="form-label fw-bold">رقم الجلوس:</label>
+        <input type="text" name="student_id" class="form-control" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label fw-bold">رقم الجلسة:</label>
+        <select name="session_num" class="form-select">
+          {% for i in sessions %}
+          <option value="{{ i }}">جلسة {{ i }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-success w-100">✅ تسجيل الحضور</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="d-flex justify-content-between mt-3">
+    <a href="{{ url_for('scan_qr') }}" class="btn btn-warning">📷 مسح الكود</a>
+    <a href="{{ url_for('verify_student') }}" class="btn btn-info">🔍 فحص الطالب</a>
+    <a href="{{ url_for('report') }}" class="btn btn-dark">📊 عرض التقرير</a>
+  </div>
+</div>
+{% endblock %}

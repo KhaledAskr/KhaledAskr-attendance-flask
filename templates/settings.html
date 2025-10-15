@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}الإعدادات{% endblock %}
+{% block content %}
+<div class="card p-4 shadow">
+  <h4>⚙️ إعدادات الدخول</h4>
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">اسم المستخدم الجديد</label>
+      <input type="text" name="username" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">كلمة المرور الجديدة</label>
+      <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">💾 حفظ التعديلات</button>
+  </form>
+</div>
+{% endblock %}
