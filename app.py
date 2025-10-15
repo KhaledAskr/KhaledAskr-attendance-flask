@@ -32,15 +32,25 @@ def save_config(cfg):
         json.dump(cfg, f, ensure_ascii=False, indent=2)
 
 # ----------------- الاتصال بـ Google Sheets -----------------
+
+from google.oauth2 import service_account
+
 def gsheet_client():
     if not os.path.exists(CREDENTIALS_FILE):
         raise FileNotFoundError("⚠️ ملف مفاتيح Google غير موجود: credentials.json")
     scopes = ["https://www.googleapis.com/auth/spreadsheets",
               "https://www.googleapis.com/auth/drive"]
-    creds = Credentials.from_service_account_file(CREDENTIALS_FILE, scopes=scopes)
+    creds_json = os.environ.get("GOOGLE_CREDS")
+    if not creds_json:
+        raise FileNotFoundError("⚠️ لم يتم العثور على متغير GOOGLE_CREDS في إعدادات Render")
+
+    creds_dict = json.loads(creds_json)
+    creds = service_account.Credentials.from_service_account_info(creds_dict)
     client = gspread.authorize(creds)
     return client
 
+    
+    
 def open_presence_sheet():
     client = gsheet_client()
     sheet = client.open_by_key(SHEET_ID)
